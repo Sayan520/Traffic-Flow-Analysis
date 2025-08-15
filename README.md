@@ -1,5 +1,7 @@
 # Traffic Flow Analysis – Vehicle Detection and Lane-wise Counting (Computer Vision)
 
+<video src="https://github.com/user-attachments/assets/8f3abb33-694d-45e7-9d92-3c0c791f4a2d" width="600" autoplay loop muted></video>
+
 ## 📌 Objective
 
 Build a Python-based system that:
@@ -35,7 +37,7 @@ Build a Python-based system that:
 git clone https://github.com/Sayan520/Traffic-Flow-Analysis.git
 cd Traffic-Flow-Analysis
 
-# (optional) create venv:
+# create virtual environment:
 python -m venv venv
 venv\Scripts\activate  # On Windows
 
@@ -67,21 +69,25 @@ python main.py
 ```
 traffic_flow_analysis/
 │
-├── main.py
-├── requirements.txt
-├── README.md
+├── main.py           # Main script to run the analysis
+├── requirements.txt  # Python dependencies
+├── README.md         # Project documentation
 └── utils/
-    ├── __init__.py
-    ├── downloader.py
-    ├── detector.py
-    └── counter.py
+    ├── __init__.py    # Optional, for package structure
+    ├── downloader.py  # Downloads YouTube video
+    ├── detector.py    # YOLOv8 vehicle detection
+    └── counter.py     # Lane-wise counting logic
 ```
+## 📄 Technical Summary
+
+This system utilizes a YOLOv8 nano model pre-trained on the COCO dataset to detect vehicles in each frame of a traffic video. The frames are processed in near real time using OpenCV, and vehicle objects are tracked using the built‐in SORT tracker in YOLO to assign each a unique ID. Lane regions are defined as three vertical segments across the frame width. For every detected object, its bounding box center is used to determine which lane it belongs to. A vehicle is counted for a lane only when its ID appears for the first time in that lane to avoid duplicate counts. Each event is logged into a CSV file with the vehicle ID, lane number, frame and timestamp. A visual overlay shows lane boundaries and live per‐lane counts on the video output.
 
 ## 🎥 Demo Video
 
-> (Attach or upload your screen recording link here)
+> [Watch the demo video here](https://drive.google.com/file/d/1yJPxqKwNKqPKhkQTb5WUoA3fec5QKz15/view?usp=sharing)
+
 
 ## ✍️ Author / Contact
 
-**Your Name** – for interview assignment
+**Sayan Ghosh** – ghoshsayan5205@gmail.com
 

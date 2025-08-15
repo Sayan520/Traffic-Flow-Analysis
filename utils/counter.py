@@ -5,7 +5,7 @@ from ultralytics import YOLO
 # Load YOLOv8 model
 model = YOLO("yolov8n.pt")
 
-# Only these classes are counted as vehicles ( car, motorcycle, bus, truck)
+# Only these classes are counted as vehicles
 VEHICLE_CLASSES = [2, 3, 5, 7] 
 
 # LANE definitions based on your video width (640px)
@@ -15,12 +15,14 @@ LANES = {
     3: (427, 640),    
 }
 
+# decide which lane a vehicle belongs to based on its center x-coordinate
 def decide_lane(x_center):
     for lane_no, (l, r) in LANES.items():
         if l <= x_center <= r:
             return lane_no
     return None
 
+# Count vehicles in the video and save results to CSV
 def count_vehicles(video_path, save_csv=True):
     cap = cv2.VideoCapture(video_path)
     frame_id = 0
@@ -37,6 +39,8 @@ def count_vehicles(video_path, save_csv=True):
 
         # run YOLO in tracking mode
         results = model.track(frame, persist=True)[0]
+        # print the number of detections in the current frame
+        print(f"Processing frame {frame_id}... and found {len(results.boxes)} detections") 
 
         for box in results.boxes:
             cls = int(box.cls[0])

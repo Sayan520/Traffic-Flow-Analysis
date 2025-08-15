@@ -4,7 +4,7 @@ from ultralytics import YOLO
 # load once globally
 model = YOLO("yolov8n.pt")
 
-# Define vehicle classes based on COCO dataset (car, motorcycle, bus, truck)
+# Define vehicle classes based on COCO dataset
 VEHICLE_CLASSES = [2, 3, 5, 7]  
 
 # detect vehicles in a video & shows bounding boxes in real-time
